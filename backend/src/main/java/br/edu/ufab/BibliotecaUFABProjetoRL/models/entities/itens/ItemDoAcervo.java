@@ -1,4 +1,5 @@
 package br.edu.ufab.BibliotecaUFABProjetoRL.models.entities.itens;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
