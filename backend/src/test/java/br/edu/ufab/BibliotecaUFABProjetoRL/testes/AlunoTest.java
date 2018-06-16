@@ -122,7 +122,7 @@ public class AlunoTest {
 	}
 
 	@Test
-	public void removeCurso() throws Exception {
+	public void removeTest() throws Exception {
 		Curso curso1 = new Curso();
 		curso1.setArea("HUMANAS");
 		curso1.setId((long) 4);

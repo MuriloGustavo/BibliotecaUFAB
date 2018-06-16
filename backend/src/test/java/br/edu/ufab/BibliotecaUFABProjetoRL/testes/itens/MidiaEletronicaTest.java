@@ -57,7 +57,7 @@ public class MidiaEletronicaTest {
 		String mockMidiaEletronicaJSON = ow.writeValueAsString(mockMidiaEletronica);
 		
 		when(MidiaEletronicaRepository.findAll()).thenReturn(mockMidiaEletronica);
-		mock.perform(get("/midia")
+		mock.perform(get("/midias")
 					.contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(status().is(200))
 		.andExpect(content().json(mockMidiaEletronicaJSON));
@@ -80,7 +80,7 @@ public class MidiaEletronicaTest {
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String mockMidiaEletronicaJSON = ow.writeValueAsString(mockMidiaEletronica.get(0));
 		
-		mock.perform(post("/midia")
+		mock.perform(post("/midias")
 					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.accept(MediaType.APPLICATION_JSON_UTF8)
 					.content(mockMidiaEletronicaJSON))
@@ -89,9 +89,10 @@ public class MidiaEletronicaTest {
 		verify(MidiaEletronicaRepository).save(any(MidiaEletronica.class));		
 	}
 
+	@Test
 	public void removeMidiaEletronica() throws Exception {
 	
-		mock.perform(delete("/midia" + "/{id}", new Long(2)))
+		mock.perform(delete("/midias" + "/{id}", new Long(2)))
 			.andExpect(status().is(200));
 	}
 	

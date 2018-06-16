@@ -39,6 +39,7 @@ public class AlunoController {
 	
 	@PostMapping
 	public Aluno salvar(@Valid @RequestBody Aluno Aluno) {
+		Aluno.setMatricula(Aluno.getPeriodo()+Aluno.getAno());
 		logger.info("Aluno salvo com sucesso.");
 		return AlunoRepository.save(Aluno);	
 	}

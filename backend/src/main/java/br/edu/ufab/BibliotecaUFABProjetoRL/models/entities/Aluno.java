@@ -2,8 +2,6 @@ package br.edu.ufab.BibliotecaUFABProjetoRL.models.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import br.edu.ufab.BibliotecaUFABProjetoRL.models.enums.TipoDeCurso;
 
 /**
  * Classe responsável por definir a organização dos dados dos objetos Aluno.
@@ -65,10 +61,6 @@ public class Aluno {
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
-	
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private TipoDeCurso tipo_curso;
 
 	@NotNull
 	@NotEmpty
@@ -298,28 +290,6 @@ public class Aluno {
 	}
 
 	/**
-	 * Retorna a variável tipo_curso da entidade Aluno
-	 * 
-	 * @return tipo_curso
-	 * @author Luis Lancellote
-	 * @author Rauny Henrique
-	 */
-	public TipoDeCurso getTipo_curso() {
-		return tipo_curso;
-	}
-
-	/**
-	 * Inicializa a variável tipo_curso da entidade Aluno
-	 * 
-	 * @param tipo_curso
-	 * @author Luis Lancellote
-	 * @author Rauny Henrique
-	 */
-	public void setTipo_curso(TipoDeCurso tipo_curso) {
-		this.tipo_curso = tipo_curso;
-	}
-
-	/**
 	 * Retorna a variável ano da entidade Aluno
 	 * 
 	 * @return ano
@@ -386,7 +356,6 @@ public class Aluno {
 		result = prime * result + periodo;
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		result = prime * result + ((tipo_curso == null) ? 0 : tipo_curso.hashCode());
 		return result;
 	}
 
@@ -463,8 +432,6 @@ public class Aluno {
 			if (other.telefone != null)
 				return false;
 		} else if (!telefone.equals(other.telefone))
-			return false;
-		if (tipo_curso != other.tipo_curso)
 			return false;
 		return true;
 	}
