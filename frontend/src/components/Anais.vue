@@ -63,6 +63,7 @@
                             <input class="form-control" v-model="anal.anoDePublicacao">
                             <label for="local">Local: </label>
                             <input class="form-control" v-model="anal.local">
+                            <input type="hidden" v-model="anal.id">
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancelar</button>

@@ -35,6 +35,44 @@
             </td>
           </tfoot>
       </table>
+      <div class="modal fade" id="modal-tcc" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="form-tcc">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Informações do TCC</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label for="titulo">Titulo: </label>
+                            <input class="form-control" v-model="tcc.titulo">
+                            <label for="autores">Autores: </label>
+                            <input class="form-control" v-model="tcc.autores">
+                            <label for="orientadores">Orientadores: </label>
+                            <input class="form-control" v-model="tcc.orientadores">
+                            <label for="tipo">Tipo: </label>
+                            <select class="form-control" v-model="tcc.tipo">
+                                <option value="MONOGRAFIA">Monografia</option>
+                                <option value="TESE">Tese</option>
+                                <option value="DISSERTACAO">Dissertacao</option>
+                            </select>
+                            <label for="anoDeDefesa">Ano: </label>
+                            <input class="form-control" v-model="tcc.anoDeDefesa">
+                            <label for="local">Local: </label>
+                            <input class="form-control" v-model="tcc.local">
+                            <input type="hidden" v-model="tcc.id">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button id="btn-salvar" type="button" class="btn btn-primary" v-on:click="salvar()">Salvar Informações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -104,7 +142,7 @@ export default {
       );
     },
     deletar(id) {
-        axios({method: "DELETE", url: "http://localhost:8080/anais/"+id
+        axios({method: "DELETE", url: "http://localhost:8080/tccs/"+id
       }).then(
         result => {
           this.recarregar();

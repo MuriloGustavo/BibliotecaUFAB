@@ -33,7 +33,38 @@
 			</td>
             </tfoot>
         </table>
-        
+        <div class="modal fade" id="modal-revista" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="form-revista">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Informações da Revista</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label for="titulo">Titulo: </label>
+                            <input class="form-control" v-model="revista.titulo">
+                            <label for="autores">Autores: </label>
+                            <input class="form-control" v-model="revista.autores">
+                            <label for="dataDePublicacao">Data: </label>
+                            <input type="date" class="form-control" v-model="revista.dataDePublicacao">
+                            <label for="edicao">Edição: </label>
+                            <input class="form-control" v-model="revista.edicao">
+                            <label for="numeroDePaginas">N°  Paginas: </label>
+                            <input class="form-control" v-model="revista.numeroDePaginas">
+                            <input type="hidden" v-model="revista.id">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button id="btn-salvar" type="button" class="btn btn-primary" v-on:click="salvar()">Salvar Informações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -113,7 +144,7 @@ export default {
     },
     editar(id) {
         var modal = $("#modal-revista");
-        axios({ method: "GET", url: "http://localhost:8080/midias/"+id
+        axios({ method: "GET", url: "http://localhost:8080/revistas/"+id
         }).then(
             result => {
             this.revista = result.data;

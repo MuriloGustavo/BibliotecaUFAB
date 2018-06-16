@@ -31,7 +31,36 @@
 			    </td>
             </tfoot>
         </table>
-        
+        <div class="modal fade" id="modal-jornal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="form-jornal">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Informações do Jornal</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label for="titulo">Titulo: </label>
+                            <input class="form-control" v-model="jornal.titulo">
+                            <label for="autores">Autores: </label>
+                            <input class="form-control" v-model="jornal.autores">
+                            <label for="data">Data: </label>
+                            <input type="date" class="form-control" v-model="jornal.data">
+                            <label for="edicao">Edição: </label>
+                            <input class="form-control" v-model="jornal.edicao">
+                            <input type="hidden" v-model="jornal.id">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button id="btn-salvar" type="button" class="btn btn-primary" v-on:click="salvar()">Salvar Informações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

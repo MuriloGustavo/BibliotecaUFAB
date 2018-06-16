@@ -41,7 +41,46 @@
 			</td>
             </tfoot>
         </table>
-       
+        <div class="modal fade" id="modal-livro" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="form-livro">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Informações de Livro</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label for="titulo">Titulo: </label>
+                            <input class="form-control" v-model="livro.titulo">
+                            <label for="autores">Autores: </label>
+                            <input class="form-control" v-model="livro.autores">
+                            <label for="isbn">ISBN: </label>
+                            <input class="form-control" v-model="livro.isbn">
+                            <label for="editora">Editora: </label>
+                            <input class="form-control" v-model="livro.editora">
+                            <label for="anoDePublicacao">Ano: </label>
+                            <input class="form-control" v-model="livro.anoDePublicacao">
+                            <label for="edicao">Edição: </label>
+                            <input class="form-control" v-model="livro.edicao">
+                            <label for="numeroDePaginas">N° Paginas: </label>
+                            <input class="form-control" v-model="livro.numeroDePaginas">
+                            <label for="area">Area: </label>
+                            <input class="form-control" v-model="livro.area">
+                            <label for="tema">Tema: </label>
+                            <input class="form-control" v-model="livro.tema">
+                            <input type="hidden" v-model="livro.id">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button id="btn-salvar" type="button" class="btn btn-primary" v-on:click="salvar()">Salvar Informações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -63,6 +102,7 @@ export default {
             anoDePublicacao: "",
             edicao: "",
             numeroDePaginas: "",
+            area: "",
             tema: ""
         }
       }
@@ -79,9 +119,9 @@ export default {
   },
   methods: {
     recarregar() {
-        axios({ method: "GET", url: "http://localhost:8080/cursos" }).then(
+        axios({ method: "GET", url: "http://localhost:8080/livros" }).then(
         result => {
-            this.cursos = result.data;
+            this.livros = result.data;
         },
         error => {
             console.error(error);
@@ -106,6 +146,7 @@ export default {
                 anoDePublicacao: "",
                 edicao: "",
                 numeroDePaginas: "",
+                area: "",
                 tema: ""
            }
         },
