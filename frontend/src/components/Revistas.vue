@@ -38,11 +38,11 @@
                 <div class="modal-content">
                     <form id="form-revista">
                         <div class="modal-header">
+                            <h4 class="modal-title">Informações da Revista</h4>
                             <button type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Informações da Revista</h4>
                         </div>
                         <div class="modal-body">
                             <label for="titulo">Titulo: </label>
@@ -109,27 +109,48 @@ export default {
     )
     },
     salvar() {
-        var modal = $("#modal-revista");
-        modal.hide();
-        axios({ method: "POST", url: "http://localhost:8080/revistas",
+        $('#modal-revista').modal('hide')
+        if(this.revista.id == "") {
+            axios({ method: "POST", url: "http://localhost:8080/revistas",
             data: this.revista, headers: { "content-type": "application/json" }
-        }).then(
-            result => {
-            this.recarregar();
-            this.revista={
-                id: "",
-                item_tipo: "REVISTA",
-                titulo: "",
-                autores: "",
-                dataDePublicacao: "",
-                edicao: "",
-                numeroDePaginas: ""
-           }
-        },
-        error => {
-          console.error(error);
+            }).then(
+                result => {
+                this.recarregar();
+                this.revista={
+                    id: "",
+                    item_tipo: "REVISTA",
+                    titulo: "",
+                    autores: "",
+                    dataDePublicacao: "",
+                    edicao: "",
+                    numeroDePaginas: ""
+                }
+            },
+            error => {
+            console.error(error);
+            }
+        );
+        } else {
+            axios({ method: "PUT", url: "http://localhost:8080/revistas/" +this.revista.id,
+            data: this.revista, headers: { "content-type": "application/json" }
+            }).then(
+                result => {
+                this.recarregar();
+                this.revista={
+                    id: "",
+                    item_tipo: "REVISTA",
+                    titulo: "",
+                    autores: "",
+                    dataDePublicacao: "",
+                    edicao: "",
+                    numeroDePaginas: ""
+                }
+            },
+            error => {
+            console.error(error);
+            }
+        );
         }
-      );
     },
     deletar(id) {
         axios({method: "DELETE", url: "http://localhost:8080/revistas/"+id
@@ -143,7 +164,6 @@ export default {
       );
     },
     editar(id) {
-        var modal = $("#modal-revista");
         axios({ method: "GET", url: "http://localhost:8080/revistas/"+id
         }).then(
             result => {
@@ -153,7 +173,7 @@ export default {
                 console.error(error);
             }
         );
-        modal.show();
+        $('#modal-revista').modal('show')
     }
   }
 };

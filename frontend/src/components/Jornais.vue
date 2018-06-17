@@ -36,11 +36,11 @@
                 <div class="modal-content">
                     <form id="form-jornal">
                         <div class="modal-header">
+                            <h4 class="modal-title">Informações do Jornal</h4>
                             <button type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Informações do Jornal</h4>
                         </div>
                         <div class="modal-body">
                             <label for="titulo">Titulo: </label>
@@ -104,26 +104,46 @@ export default {
     )
     },
     salvar() {
-        var modal = $("#modal-jornal");
-        modal.hide();
-        axios({ method: "POST", url: "http://localhost:8080/jornais",
+        $('#modal-jornal').modal('hide')
+        if(this.jornal.id == "") {
+            axios({ method: "POST", url: "http://localhost:8080/jornais",
             data: this.jornal, headers: { "content-type": "application/json" }
-        }).then(
-            result => {
-            this.recarregar();
-            this.jornal={
-                id: "",
-                item_tipo: "JORNAL",
-                titulo: "",
-                autores: "",
-                data: "",
-                edicao: ""
-           }
-        },
-        error => {
-          console.error(error);
+            }).then(
+                result => {
+                this.recarregar();
+                this.jornal={
+                    id: "",
+                    item_tipo: "JORNAL",
+                    titulo: "",
+                    autores: "",
+                    data: "",
+                    edicao: ""
+                }
+            },
+            error => {
+            console.error(error);
+            }
+        );
+        } else {
+            axios({ method: "PUT", url: "http://localhost:8080/jornais/" +this.jornal.id,
+            data: this.jornal, headers: { "content-type": "application/json" }
+            }).then(
+                result => {
+                    this.recarregar();
+                    this.jornal={
+                        id: "",
+                        item_tipo: "JORNAL",
+                        titulo: "",
+                        autores: "",
+                        data: "",
+                        edicao: ""
+                    }
+                },
+            error => {
+            console.error(error);
+            }
+        );
         }
-      );
     },
     deletar(id) {
         axios({method: "DELETE", url: "http://localhost:8080/jornais/"+id
@@ -137,17 +157,16 @@ export default {
       );
     },
     editar(id) {
-        var modal = $("#modal-jornal");
-        axios({ method: "GET", url: "http://localhost:8080/jonais/"+id
+        axios({ method: "GET", url: "http://localhost:8080/jornais/"+id
         }).then(
             result => {
-            this.curso = result.data;
+            this.jornal = result.data;
         },
             error => {
                 console.error(error);
             }
         );
-        modal.show();
+        $('#modal-jornal').modal('show')
     }
   }
 };

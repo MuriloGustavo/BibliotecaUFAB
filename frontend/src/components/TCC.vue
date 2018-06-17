@@ -40,11 +40,11 @@
                 <div class="modal-content">
                     <form id="form-tcc">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title">Informações do TCC</h4>
+                          <h4 class="modal-title">Informações do TCC</h4>
+                          <button type="button" class="close" data-dismiss="modal"
+                              aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
                         <div class="modal-body">
                             <label for="titulo">Titulo: </label>
@@ -118,10 +118,10 @@ export default {
     )
     },
     salvar() {
-        var modal = $("#modal-tcc");
-        modal.hide();
+      $('#modal-tcc').modal('hide')
+      if(this.tcc.id == "") {
         axios({ method: "POST", url: "http://localhost:8080/tccs",
-            data: this.tcc, headers: { "content-type": "application/json" }
+          data: this.tcc, headers: { "content-type": "application/json" }
         }).then(
             result => {
               this.recarregar();
@@ -135,11 +135,33 @@ export default {
                 anoDeDefesa: "",
                 local: ""
             }
-        },
-        error => {
-          console.error(error);
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      } else {
+        axios({ method: "PUT", url: "http://localhost:8080/tccs/"+this.tcc.id,
+          data: this.tcc, headers: { "content-type": "application/json" }
+        }).then(
+            result => {
+              this.recarregar();
+              this.anal={
+                id: "",
+                item_tipo: "TRABALHOSDECONCLUSAO",
+                titulo: "",
+                autores: "",
+                orientadores: "",
+                tipo: "",
+                anoDeDefesa: "",
+                local: ""
+            }
+          },
+          error => {
+            console.error(error);
+          }
+        );
         }
-      );
     },
     deletar(id) {
         axios({method: "DELETE", url: "http://localhost:8080/tccs/"+id
@@ -153,7 +175,16 @@ export default {
       );
     },
     editar(id) {
-        
+        axios({ method: "GET", url: "http://localhost:8080/tccs/"+id
+        }).then(
+            result => {
+            this.tcc = result.data;
+        },
+            error => {
+                console.error(error);
+            }
+        );
+        $('#modal-tcc').modal('show')
     }
   }
 };

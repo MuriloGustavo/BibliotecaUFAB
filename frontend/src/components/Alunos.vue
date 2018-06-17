@@ -6,10 +6,11 @@
                 <tr>
                     <td style="width: 5%">#</td>
                     <td style="width: 10%">Nome</td>
+                    <td style="width: 5%">Matricula</td>
                     <td style="width: 5%">CPF</td>
                     <td style="width: 5%">RG</td>
                     <td style="width: 10%">Naturalidade</td>
-                    <td style="width: 10%">Mãe</td>
+                    <td style="width: 5%">Mãe</td>
                     <td style="width: 10%">Endereço</td>
                     <td style="width: 5%">Telefone</td>
                     <td style="width: 10%">Curso</td>
@@ -49,11 +50,11 @@
                 <div class="modal-content">
                     <form id="form-aluno">
                         <div class="modal-header">
+                            <h4 class="modal-title">Informações do Aluno</h4>
                             <button type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Informações do Aluno</h4>
                         </div>
                         <div class="modal-body">
                             <label for="nome">Nome: </label>
@@ -146,32 +147,58 @@ export default {
     )
     },
     salvar() {
-        var modal = $("#modal-aluno");
-        modal.hide();
-        axios({ method: "POST", url: "http://localhost:8080/alunos",
+        $('#modal-aluno').modal('hide')
+        if(this.aluno.id == "") {
+            axios({ method: "POST", url: "http://localhost:8080/alunos",
             data: this.aluno, headers: { "content-type": "application/json" }
-        }).then(
-            result => {
-            this.recarregar();
-            this.aluno={
-                id: "",
-                nome: "",
-                matricula: "",
-                cpf: "",
-                rg: "",
-                naturalidade: "",
-                nomeDaMae: "",
-                endereco: "",
-                telefone: "",
-                curso: "",
-                ano: "",
-                periodo: ""
-           }
-        },
-        error => {
-          console.error(error);
+            }).then(
+                result => {
+                this.recarregar();
+                this.aluno={
+                    id: "",
+                    nome: "",
+                    matricula: "",
+                    cpf: "",
+                    rg: "",
+                    naturalidade: "",
+                    nomeDaMae: "",
+                    endereco: "",
+                    telefone: "",
+                    curso: "",
+                    ano: "",
+                    periodo: ""
+            }
+            },
+            error => {
+            console.error(error);
+            }
+        );
+        } else {
+            axios({ method: "PUT", url: "http://localhost:8080/alunos/" +this.aluno.id,
+            data: this.aluno, headers: { "content-type": "application/json" }
+            }).then(
+                result => {
+                this.recarregar();
+                this.aluno={
+                    id: "",
+                    nome: "",
+                    matricula: "",
+                    cpf: "",
+                    rg: "",
+                    naturalidade: "",
+                    nomeDaMae: "",
+                    endereco: "",
+                    telefone: "",
+                    curso: "",
+                    ano: "",
+                    periodo: ""
+            }
+            },
+            error => {
+                console.error(error);
+            }
+        );
         }
-      );
     },
     deletar(id) {
         axios({method: "DELETE", url: "http://localhost:8080/alunos/"+id
@@ -185,7 +212,6 @@ export default {
       );
     },
     editar(id) {
-        var modal = $("#modal-aluno");
         axios({ method: "GET", url: "http://localhost:8080/alunos/"+id
         }).then(
             result => {
@@ -195,7 +221,7 @@ export default {
                 console.error(error);
             }
         );
-        modal.show();
+        $('#modal-aluno').modal('show')
     }
   }
 };

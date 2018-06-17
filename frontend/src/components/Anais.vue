@@ -40,11 +40,11 @@
                 <div class="modal-content">
                     <form id="form-anais">
                         <div class="modal-header">
+                            <h4 class="modal-title">Informações de Anais</h4>
                             <button type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Informações de Anais</h4>
                         </div>
                         <div class="modal-body">
                             <label for="titulo">Titulo: </label>
@@ -118,10 +118,10 @@ export default {
     )
     },
     salvar() {
-        var modal = $("#modal-anais");
-        modal.hide();
+      $('#modal-anais').modal('hide')
+      if(this.anal.id == "") {
         axios({ method: "POST", url: "http://localhost:8080/anais",
-            data: this.anal, headers: { "content-type": "application/json" }
+          data: this.anal, headers: { "content-type": "application/json" }
         }).then(
             result => {
               this.recarregar();
@@ -135,11 +135,33 @@ export default {
                 anoDePublicacao: "",
                 local: ""
             }
-        },
-        error => {
-          console.error(error);
-        }
-      );
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      } else {
+        axios({ method: "PUT", url: "http://localhost:8080/anais/" + this.anal.id,
+          data: this.anal, headers: { "content-type": "application/json" }
+        }).then(
+            result => {
+              this.recarregar();
+              this.anal={
+                id: "",
+                item_tipo: "ANAISDECONGRESSO",
+                titulo: "",
+                autores: "",
+                tipo: "",
+                nomeDoCongresso: "",
+                anoDePublicacao: "",
+                local: ""
+            }
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      } 
     },
     deletar(id) {
         axios({method: "DELETE", url: "http://localhost:8080/anais/"+id
@@ -153,7 +175,16 @@ export default {
       );
     },
     editar(id) {
-        
+       axios({ method: "GET", url: "http://localhost:8080/anais/"+id
+        }).then(
+            result => {
+            this.anal = result.data;
+        },
+            error => {
+                console.error(error);
+            }
+        );
+        $('#modal-anais').modal('show') 
     }
   }
 };

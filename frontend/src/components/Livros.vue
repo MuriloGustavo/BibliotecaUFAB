@@ -46,11 +46,11 @@
                 <div class="modal-content">
                     <form id="form-livro">
                         <div class="modal-header">
+                            <h4 class="modal-title">Informações de Livro</h4>
                             <button type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Informações de Livro</h4>
                         </div>
                         <div class="modal-body">
                             <label for="titulo">Titulo: </label>
@@ -129,9 +129,33 @@ export default {
     )
     },
     salvar() {
-        var modal = $("#modal-livro");
-        modal.hide();
-        axios({ method: "POST", url: "http://localhost:8080/livros",
+        $('#modal-livro').modal('hide')
+        if(this.livro.id == "") {
+            axios({ method: "POST", url: "http://localhost:8080/livros",
+            data: this.livro, headers: { "content-type": "application/json" }
+            }).then(
+                result => {
+                    this.recarregar();
+                    this.livro={
+                        id: "",
+                        item_tipo: "LIVRO",
+                        titulo: "",
+                        autores: "",
+                        isbn: "",
+                        editora: "",
+                        anoDePublicacao: "",
+                        edicao: "",
+                        numeroDePaginas: "",
+                        area: "",
+                        tema: ""
+                    }
+                },
+            error => {
+                console.error(error);
+            }
+            );
+        } else {
+            axios({ method: "PUT", url: "http://localhost:8080/livros/" +this.livro.id,
             data: this.livro, headers: { "content-type": "application/json" }
         }).then(
             result => {
@@ -154,6 +178,7 @@ export default {
           console.error(error);
         }
       );
+     }
     },
     deletar(id) {
         axios({method: "DELETE", url: "http://localhost:8080/livros/"+id
@@ -167,7 +192,6 @@ export default {
       );
     },
     editar(id) {
-        var modal = $("#modal-livro");
         axios({ method: "GET", url: "http://localhost:8080/livros/"+id
         }).then(
             result => {
@@ -177,7 +201,7 @@ export default {
                 console.error(error);
             }
         );
-        modal.show();
+        $('#modal-livro').modal('show')
     }
   }
 };
