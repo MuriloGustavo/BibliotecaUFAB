@@ -17,11 +17,11 @@ insert into Item_Do_Acervo (id, item_tipo, titulo, autores) values (6, 'JORNAL',
 insert into Jornal (id, data, edicao) values (6, '2010-05-18', 3);
 
 insert into Item_Do_Acervo (id, item_tipo, titulo, autores) values (7, 'LIVRO', 'Livro 01', 'Fulano');
-insert into Livro (id, isbn, editora, ano_De_Publicacao, edicao, numero_De_Paginas, area, tema) values (7, 6346287, 'Editora 01', 2016, 1, 222, 'Area 01', 'Fulano');
+insert into Livro (id, isbn, editora, ano_De_Publicacao, edicao, numero_De_Paginas, area, tema) values (7, 6346287, 'Editora 01', 2016, 1, 222, 'Area 01', 'Tema 01');
 insert into Item_Do_Acervo (id, item_tipo, titulo, autores) values (8, 'LIVRO', 'Livro 02', 'Cicrano');
-insert into Livro (id, isbn, editora, ano_De_Publicacao, edicao, numero_De_Paginas, area, tema) values (8, 7348227, 'Editora 02', 2017, 2, 333, 'Area 02', 'Cicrano');
+insert into Livro (id, isbn, editora, ano_De_Publicacao, edicao, numero_De_Paginas, area, tema) values (8, 7348227, 'Editora 02', 2017, 2, 333, 'Area 02', 'Tema 02');
 insert into Item_Do_Acervo (id, item_tipo, titulo, autores) values (9, 'LIVRO', 'Livro 03', 'Beltrano');
-insert into Livro (id, isbn, editora, ano_De_Publicacao, edicao, numero_De_Paginas, area, tema) values (9, 9578225, 'Editora 03', 2018, 3, 444, 'Area 03', 'Beltrano');
+insert into Livro (id, isbn, editora, ano_De_Publicacao, edicao, numero_De_Paginas, area, tema) values (9, 9578225, 'Editora 03', 2018, 3, 444, 'Area 03', 'Tema 03');
 
 insert into Item_Do_Acervo (id, item_tipo, titulo, autores) values (10, 'MIDIAELETRONICA', 'Midia 01', 'Fulano');
 insert into Midia_Eletronica (id, tipo, data_De_Gravacao) values (10, 'CD', '2011-02-04');
